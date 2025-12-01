@@ -1,1 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Echo Art - Voice to Art Generator</title>
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <div class="container">
+        <h2>🎨 Echo Art</h2>
+        <p>Convert your voice or text into beautiful AI-generated art</p>
+
+        <!-- TEXT AREA FOR ABSTRACT -->
+        <textarea id="abstractInput" placeholder="Type your abstract or description here..."></textarea>
+
+        <!-- RECORD BUTTON -->
+        <button id="recordBtn">🎤 Record Voice</button>
+
+        <!-- GENERATE BUTTON -->
+        <button id="generateBtn">✨ Generate Art</button>
+
+        <!-- LOADING TEXT -->
+        <p id="loading">Generating your art... Please wait.</p>
+
+        <!-- RESULT IMAGE -->
+        <img id="resultImage" src="" alt="Generated Art">
+    </div>
+
+    <!-- JavaScript File -->
+    <script src="script.js"></script>
+
+</body>
+</html>
 
