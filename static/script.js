@@ -40,7 +40,8 @@ generateBtn.addEventListener("click", async () => {
         prompt: abstractText
     };
 
-    const response = await fetch("/generate", {
+    // 🔥 FIXED: full backend URL instead of "/generate"
+    const response = await fetch("https://artify-2.onrender.com/ggenerate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -56,4 +57,3 @@ generateBtn.addEventListener("click", async () => {
         alert("Error generating image.");
     }
 });
-
