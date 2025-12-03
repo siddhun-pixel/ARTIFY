@@ -20,10 +20,6 @@ recordBtn.addEventListener("click", async () => {
             audioChunks.push(e.data);
         };
 
-        mediaRecorder.onstop = () => {
-            console.log("Recording stopped.");
-        };
-
         mediaRecorder.start();
         recordBtn.innerText = "Stop Recording 🎤";
     } 
@@ -38,28 +34,13 @@ generateBtn.addEventListener("click", async () => {
     loadingText.style.display = "block";
     resultImage.src = "";
 
-    let audioBase64 = "";
-
-    // Convert audio blob to Base64
-    if (audioChunks.length > 0) {
-        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-        const reader = new FileReader();
-
-        audioBase64 = await new Promise((resolve) => {
-            reader.onloadend = () => resolve(reader.result.split(",")[1]);
-            reader.readAsDataURL(audioBlob);
-        });
-    }
-
     const abstractText = abstractInput.value;
 
     const payload = {
-        abstract: abstractText,
-        audio: audioBase64
+        prompt: abstractText
     };
 
-    // Send to backend
-    const response = await fetch("/generate_art", {
+    const response = await fetch("/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -69,8 +50,8 @@ generateBtn.addEventListener("click", async () => {
 
     loadingText.style.display = "none";
 
-    if (data.image) {
-        resultImage.src = "data:image/png;base64," + data.image;
+    if (data.url) {
+        resultImage.src = data.url;
     } else {
         alert("Error generating image.");
     }
