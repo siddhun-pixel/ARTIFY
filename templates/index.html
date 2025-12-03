@@ -6,12 +6,12 @@
     <title>Echo Art - Voice to Art Generator</title>
 
     <!-- Link CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
     <!-- Poppins Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 </head>
+
 <body>
 
     <div class="container">
@@ -35,8 +35,7 @@
     </div>
 
     <!-- JavaScript File -->
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 </html>
-
