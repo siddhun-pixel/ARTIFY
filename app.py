@@ -1,15 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import cloudinary
 import cloudinary.uploader
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", template_folder="templates")
 CORS(app)
 
-# -------------------------
-# CLOUDINARY CONFIGURATION
-# -------------------------
+# CLOUDINARY CONFIG
 cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
     api_key=os.getenv("CLOUDINARY_API_KEY"),
@@ -18,11 +16,8 @@ cloudinary.config(
 
 @app.route("/", methods=["GET"])
 def home():
-    return {"message": "ARTIFY Backend Running Successfully!"}
+    return render_template("index.html")
 
-# ------------------------------------
-# UPLOAD IMAGE TO CLOUDINARY ENDPOINT
-# ------------------------------------
 @app.route("/upload", methods=["POST"])
 def upload_image():
     try:
@@ -38,15 +33,11 @@ def upload_image():
         return jsonify({"success": False, "error": str(e)}), 500
 
 
-# ----------------------------------------------------
-# EXAMPLE TEXT-TO-IMAGE (DUMMY AI MODEL IMPLEMENTATION)
-# ----------------------------------------------------
 @app.route("/generate", methods=["POST"])
 def generate_image():
     try:
         prompt = request.json["prompt"]
 
-        # Dummy AI Image URL (replace with your AI model)
         ai_image_url = "https://placehold.co/600x400?text=Generated+Image"
 
         return jsonify({
@@ -62,4 +53,3 @@ def generate_image():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
