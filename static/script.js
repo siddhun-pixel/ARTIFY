@@ -12,8 +12,8 @@ let audioChunks = [];
 recordBtn.addEventListener("click", async () => {
     if (!mediaRecorder || mediaRecorder.state === "inactive") {
         audioChunks = [];
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         mediaRecorder = new MediaRecorder(stream);
 
         mediaRecorder.ondataavailable = e => {
@@ -34,14 +34,18 @@ generateBtn.addEventListener("click", async () => {
     loadingText.style.display = "block";
     resultImage.src = "";
 
-    const abstractText = abstractInput.value;
+    const abstractText = abstractInput.value.trim();
 
-    const payload = {
-        prompt: abstractText
-    };
+    if (!abstractText) {
+        alert("Please enter a prompt!");
+        loadingText.style.display = "none";
+        return;
+    }
 
-    // ✅ CORRECT ENDPOINT
-    const response = await fetch("https://artify-2.onrender.com/generate", {
+    const payload = { prompt: abstractText };
+
+    // ✅ FIXED: Correct backend route
+    const response = await fetch("/generate_image", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -57,4 +61,3 @@ generateBtn.addEventListener("click", async () => {
         alert("Error generating image.");
     }
 });
-
