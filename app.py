@@ -36,20 +36,7 @@ def upload_image():
 @app.route("/generate", methods=["POST"])
 def generate_image():
     try:
-        prompt = request.json["prompt"]
+        prompt = request.json.get("prompt", "")
 
-        ai_image_url = "https://placehold.co/600x400?text=Generated+Image"
-
-        return jsonify({
-            "success": True,
-            "prompt": prompt,
-            "url": ai_image_url
-        })
-
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
-
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+        # Always-returning-working sample image
+        ai_image_url = "htt
